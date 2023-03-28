@@ -1,7 +1,8 @@
 package com.pilshikov.homework3.password_validator;
 
-import homework3.password_validator.exceptions.WrongLoginException;
-import homework3.password_validator.exceptions.WrongPasswordException;
+import com.pilshikov.homework3.password_validator.exceptions.WrongLoginException;
+import com.pilshikov.homework3.password_validator.exceptions.WrongPasswordException;
+
 
 public class PasswordValidator {
 
@@ -9,7 +10,7 @@ public class PasswordValidator {
         try {
              if (validateLogin(login) && validatePassword(password) && validateConfirmPassword(password, confirmPassword))
                  return true;
-        } catch (WrongLoginException|WrongPasswordException e) {
+        } catch (WrongLoginException | WrongPasswordException e) {
             System.out.println(e.getMessage());
         }
         return false;
