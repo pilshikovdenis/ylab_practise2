@@ -109,7 +109,7 @@ public class FileSortImpl implements FileSorter {
       while (rs.next()) {
         results.add(rs.getLong(1));
       }
-
+      rs.close();
       return (results.isEmpty()) ? null : results;
     }
   }

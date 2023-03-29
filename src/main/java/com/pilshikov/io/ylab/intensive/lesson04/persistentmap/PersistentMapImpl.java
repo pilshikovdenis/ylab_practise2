@@ -35,7 +35,10 @@ public class PersistentMapImpl implements PersistentMap {
       ResultSet rs = preparedStatement.executeQuery();
 
       rs.next();
-      return rs.getInt(1) != 0;
+      boolean result = rs.getInt(1) != 0;
+      rs.close();
+
+      return result;
     }
   }
 
@@ -51,6 +54,7 @@ public class PersistentMapImpl implements PersistentMap {
       while (rs.next()) {
         keys.add(rs.getString(1));
       }
+      rs.close();
 
       return (keys.size() == 0) ? null : keys;
     }
@@ -67,12 +71,12 @@ public class PersistentMapImpl implements PersistentMap {
 
 
       ResultSet rs = preparedStatement.executeQuery();
+      String result = null;
 
       if (rs.next()) {
-        return rs.getString(1);
-      } else {
-        return null;
+        result =  rs.getString(1);
       }
+      return result;
 
     }
   }

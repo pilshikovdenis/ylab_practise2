@@ -29,6 +29,7 @@ public class PersonRepository {
             selectStatement.setLong(1, person.getId());
             ResultSet rs = selectStatement.executeQuery();
             boolean recordExists = rs.isBeforeFirst();
+            rs.close();
 
             if (recordExists) {
                 // запрос на обновление
@@ -76,6 +77,8 @@ public class PersonRepository {
                 person.setLastName(rs.getString(3));
                 person.setMiddleName(rs.getString(4));
             }
+            rs.close();
+
             return person;
         }
 
@@ -99,6 +102,7 @@ public class PersonRepository {
                         rs.getString(4)
                 ));
             }
+            rs.close();
             return persons;
         }
     }
