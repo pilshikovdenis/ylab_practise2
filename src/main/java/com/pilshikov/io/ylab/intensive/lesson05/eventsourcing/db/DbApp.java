@@ -7,5 +7,7 @@ public class DbApp {
     AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
     applicationContext.start();
     // тут пишем создание и запуск приложения работы с БД
+    PersonMessageReceiver messageReceiver = applicationContext.getBean(PersonMessageReceiver.class);
+    messageReceiver.beginReceiveing();
   }
 }
