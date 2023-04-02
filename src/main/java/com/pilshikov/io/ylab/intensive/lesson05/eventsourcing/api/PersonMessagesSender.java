@@ -24,7 +24,7 @@ public class PersonMessagesSender {
 
     private final String queueName = "api_queue";
 
-    @Autowired
+
     public PersonMessagesSender(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }

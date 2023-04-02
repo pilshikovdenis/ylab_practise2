@@ -15,7 +15,7 @@ import java.util.List;
 public class PersonRepository {
     private DataSource dataSource;
 
-    @Autowired
+
     public PersonRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }

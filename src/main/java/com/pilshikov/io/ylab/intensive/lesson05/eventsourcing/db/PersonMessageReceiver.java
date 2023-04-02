@@ -23,7 +23,7 @@ public class PersonMessageReceiver {
     private ConnectionFactory connectionFactory;
     private PersonRepository personRepository;
 
-    @Autowired
+
     public PersonMessageReceiver(ConnectionFactory connectionFactory, PersonRepository personRepository) {
         this.connectionFactory = connectionFactory;
         this.personRepository = personRepository;

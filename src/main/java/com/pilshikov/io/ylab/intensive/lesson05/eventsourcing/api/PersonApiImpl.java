@@ -21,7 +21,7 @@ public class PersonApiImpl implements PersonApi {
   private final PersonRepository personRepository;
   private final PersonMessagesSender personMessagesSender;
 
-  @Autowired
+
   public PersonApiImpl(ConnectionFactory connectionFactory, DataSource dataSource) {
     personRepository = new PersonRepository(dataSource);
     personMessagesSender = new PersonMessagesSender(connectionFactory);

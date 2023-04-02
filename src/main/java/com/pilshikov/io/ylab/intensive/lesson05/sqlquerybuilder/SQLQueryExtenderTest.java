@@ -1,6 +1,7 @@
 package com.pilshikov.io.ylab.intensive.lesson05.sqlquerybuilder;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -12,9 +13,12 @@ public class SQLQueryExtenderTest {
     applicationContext.start();
     SQLQueryBuilder queryBuilder = applicationContext.getBean(SQLQueryBuilder.class);
     List<String> tables = queryBuilder.getTables();
-    // вот так сгенерируем запросы для всех таблиц что есть в БД
+//     вот так сгенерируем запросы для всех таблиц что есть в БД
     for (String tableName : tables) {
       System.out.println(queryBuilder.queryForTable(tableName));
     }
+
+
+
   }
 }
