@@ -8,7 +8,6 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.GetResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -29,38 +28,37 @@ public class PersonMessageReceiver {
         this.personRepository = personRepository;
     }
 
-    public void beginReceiveing() throws IOException, TimeoutException, SQLException {
+    public void processOneMessage() throws IOException, TimeoutException, SQLException {
         // Открываем подключение к RabbitMQ и открываем канал
         try(Connection connection = connectionFactory.newConnection();
             Channel channel = connection.createChannel()) {
-            // Пока поток запущен получаем сообщения из очереди
-            while (!Thread.currentThread().isInterrupted()) {
-                GetResponse message = channel.basicGet(queueName, true);
-                if (message != null) {
-                    // вынимаем сообщение из очереди
-                    String recieved = new String(message.getBody());
+            // получаем сообщение из очереди
+            GetResponse message = channel.basicGet(queueName, true);
+            if (message != null) {
+                // вынимаем сообщение из очереди
+                String recieved = new String(message.getBody());
 
-                    // получаем тип операции из json
-                    ObjectMapper mapper = new ObjectMapper();
-                    JsonNode node = mapper.readTree(recieved);
-                    String operationType = node.get("operation").asText();
+                // получаем тип операции из json
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode node = mapper.readTree(recieved);
+                String operationType = node.get("operation").asText();
 
-                    if (operationType.equals("delete")) {
-                        // удаление
-                        long id = node.get("id").asLong();
-                        if (personRepository.find(id) == null) {
-                            System.out.println("Попытка удалить несуществующего Person c id = " + id);
-                        } else {
-                            personRepository.delete(id);
-                        }
+                if (operationType.equals("delete")) {
+                    // удаление
+                    long id = node.get("id").asLong();
+                    if (personRepository.find(id) == null) {
+                        System.out.println("Попытка удалить несуществующего Person c id = " + id);
                     } else {
-                        // сохранение
-                        String object = node.get("object").asText();
-                        Person person = mapper.readValue(object, Person.class);
-                        personRepository.createOrUpdate(person);
+                        personRepository.delete(id);
                     }
+                } else {
+                    // сохранение
+                    String object = node.get("object").asText();
+                    Person person = mapper.readValue(object, Person.class);
+                    personRepository.createOrUpdate(person);
                 }
             }
         }
     }
+
 }

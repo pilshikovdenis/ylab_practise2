@@ -11,7 +11,7 @@ public class ApiApp {
     // Тут пишем создание PersonApi, запуск и демонстрацию работы
     AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
     applicationContext.start();
-    PersonApi personApi = applicationContext.getBean(PersonApiImpl.class);
+    PersonApi personApi = applicationContext.getBean(PersonApi.class);
     // пишем взаимодействие с PersonApi
 
     // получаем уже добавленных
