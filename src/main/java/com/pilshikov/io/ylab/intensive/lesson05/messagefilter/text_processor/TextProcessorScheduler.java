@@ -1,4 +1,4 @@
-package com.pilshikov.io.ylab.intensive.lesson05.messagefilter;
+package com.pilshikov.io.ylab.intensive.lesson05.messagefilter.text_processor;
 
 import org.springframework.stereotype.Component;
 

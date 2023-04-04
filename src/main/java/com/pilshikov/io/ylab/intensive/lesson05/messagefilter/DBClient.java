@@ -95,6 +95,7 @@ public class DBClient {
 
     // Метод проверяет находится ли полученное слово в базе данных
     public boolean isWordValid(String word) throws SQLException {
+
         String query = "SELECT * FROM words WHERE word = ?";
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
